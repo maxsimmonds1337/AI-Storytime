@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI Storytime</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1>AI Storytime</h1>
+    <div class="form-group">
+      <label for="prompt">Write me a story about...</label> 
+      <input type="text" id="prompt" class="form-control">
+      <button class="btn btn-primary mt-2" onclick="generateStory()">Generate Story</button>
+    </div>
+    <div>
+      <h2>Generated Story:</h2>
+      <p id="story"></p>
+    </div>
+  </div>
+
+  <script>
+    function generateStory() {
+      const prompt = document.getElementById('prompt').value;
+      const storyElement = document.getElementById('story');
+
+      fetch('https://prompt-engine-bcrutvpc4a-ew.a.run.app/generate-story', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt }),
+      })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Error: ' + response.status);
+        }
+      })
+      .then(data => {
+        storyElement.textContent = data.generated_story;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        storyElement.textContent = 'Error generating story.';
+      });
+    }
+  </script>
+</body>
+</html>

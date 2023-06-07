@@ -1,0 +1,8 @@
+[
+    {
+      "origin": ["https://frontend-387614.storage.googleapis.com/index.html"],
+      "method": ["GET"],
+      "responseHeader": ["Content-Type"],
+      "maxAgeSeconds": 3600
+    }
+]
